@@ -91,7 +91,6 @@ public class UserService {
             userPayload.setPrimarySkills(userObj.getPrimarySkills());
             userPayload.setSecondarySkills(userObj.getSecondarySkills());
             userPayload.setAddress(userObj.getAddress());
-
             if (userObj.getDateOfJoin() != null) {
                 Date date = null;
                 try {

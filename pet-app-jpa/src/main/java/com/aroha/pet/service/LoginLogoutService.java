@@ -94,8 +94,7 @@ public class LoginLogoutService {
             }
             User user = userObj.get();
             System.out.println(user.getName());
-            System.out.println(obj.getLoginDateTime());
-            System.out.println(obj.getLogoutDateTime());
+
             String[] time = obj.getLoggedInTime().split(":");
             if (!time[0].equals("00")) {
                 System.out.println(time[0] + " hours");
@@ -108,4 +107,5 @@ public class LoginLogoutService {
             }
         }
     }
+
 }
