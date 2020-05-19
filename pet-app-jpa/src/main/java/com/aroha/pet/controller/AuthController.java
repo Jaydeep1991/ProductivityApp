@@ -40,6 +40,7 @@ import com.aroha.pet.security.UserPrincipal;
 import com.aroha.pet.service.DBService;
 import com.aroha.pet.service.LoginLogoutService;
 import com.aroha.pet.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  */
@@ -100,9 +101,9 @@ public class AuthController {
     }
 
     @GetMapping("/showLearnerLoginDetails")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MENTOR')")
     public ResponseEntity<?> getLoginDetails() {
-        loginLogoutService.showLoginDetails();
-        return ResponseEntity.ok("OK");
+        return ResponseEntity.ok(loginLogoutService.showLoginDetails());
     }
 
     @PostMapping("/signup")

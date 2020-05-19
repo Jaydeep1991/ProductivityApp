@@ -327,7 +327,7 @@ public class FeedBackService {
         } catch (Exception ex) {
             return new DeleteDomainPayload("Error saving feedback", HttpStatus.BAD_REQUEST.value());
         }
-        return new DeleteDomainPayload("FeedBack Saved successfully", HttpStatus.OK.value());
+        return new DeleteDomainPayload("Feedback Saved successfully", HttpStatus.OK.value());
 
     }
 
@@ -380,7 +380,7 @@ public class FeedBackService {
         } catch (Exception ex) {
             return new DeleteDomainPayload("Error saving feedback", HttpStatus.BAD_REQUEST.value());
         }
-        return new DeleteDomainPayload("FeedBack Saved successfully", HttpStatus.OK.value());
+        return new DeleteDomainPayload("Feedback Saved successfully", HttpStatus.OK.value());
     }
 
     public DeleteDomainPayload saveJavaFeedback(MentorFeedback feed, UserPrincipal user) {
@@ -432,7 +432,7 @@ public class FeedBackService {
         } catch (Exception ex) {
             return new DeleteDomainPayload("Error saving feedback", HttpStatus.BAD_REQUEST.value());
         }
-        return new DeleteDomainPayload("FeedBack Saved successfully", HttpStatus.OK.value());
+        return new DeleteDomainPayload("Feedback Saved successfully", HttpStatus.OK.value());
     }
 
     public DeleteDomainPayload saveJavaScriptFeedback(MentorFeedback feed, UserPrincipal user) {
@@ -486,7 +486,7 @@ public class FeedBackService {
         } catch (Exception ex) {
             return new DeleteDomainPayload("Error saving feedback", HttpStatus.BAD_REQUEST.value());
         }
-        return new DeleteDomainPayload("FeedBack Saved successfully", HttpStatus.OK.value());
+        return new DeleteDomainPayload("Feedback Saved successfully", HttpStatus.OK.value());
     }
 
     public DeleteDomainPayload savePythonFeedback(MentorFeedback feed, UserPrincipal user) {
@@ -539,7 +539,7 @@ public class FeedBackService {
         } catch (Exception ex) {
             return new DeleteDomainPayload("Error saving feedback", HttpStatus.BAD_REQUEST.value());
         }
-        return new DeleteDomainPayload("FeedBack Saved successfully", HttpStatus.OK.value());
+        return new DeleteDomainPayload("Feedback Saved successfully", HttpStatus.OK.value());
     }
 
     // Show mentor feedback

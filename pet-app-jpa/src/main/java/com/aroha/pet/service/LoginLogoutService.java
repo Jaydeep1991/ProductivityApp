@@ -1,6 +1,5 @@
 package com.aroha.pet.service;
 
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -15,8 +14,11 @@ import org.springframework.stereotype.Service;
 import com.aroha.pet.model.LoginLogoutTime;
 import com.aroha.pet.model.User;
 import com.aroha.pet.payload.ForgetPasswordPayload;
+import com.aroha.pet.payload.LoginPayloadResponse;
+import com.aroha.pet.payload.LoginResponse;
 import com.aroha.pet.repository.LoginLogoutTimeRepository;
 import com.aroha.pet.security.UserPrincipal;
+import java.util.ArrayList;
 
 @Service
 public class LoginLogoutService {
@@ -83,29 +85,38 @@ public class LoginLogoutService {
         return new ForgetPasswordPayload(HttpStatus.OK.value(), Boolean.TRUE, "Logged out successfully");
     }
 
-    public void showLoginDetails() {
+    public LoginResponse showLoginDetails() {
         List<LoginLogoutTime> list = loginRepo.findAll();
         Iterator<LoginLogoutTime> itr = list.iterator();
+        List<LoginPayloadResponse> listObj = new ArrayList<>();
+
         while (itr.hasNext()) {
             LoginLogoutTime obj = itr.next();
+            LoginPayloadResponse loginObj = new LoginPayloadResponse();
             Optional<User> userObj = userService.findByLearnerId(obj.getUserId());
             if (!userObj.isPresent()) {
                 throw new RuntimeException("User is not found");
             }
             User user = userObj.get();
-            System.out.println(user.getName());
-
+            String getTime = "";
             String[] time = obj.getLoggedInTime().split(":");
             if (!time[0].equals("00")) {
-                System.out.println(time[0] + " hours");
+                getTime += time[0] + " hours ";
             }
             if (!time[1].equals("00")) {
-                System.out.println(time[1] + " miniutes");
+                getTime += time[1] + " minutes ";
             }
             if (!time[2].equals("00")) {
-                System.out.println(time[2] + " seconds");
+                getTime += time[2] + " seconds";
             }
+            loginObj.setName(user.getName());
+            loginObj.setLogedeInTime(getTime);
+            listObj.add(loginObj);
         }
+        if (listObj.isEmpty()) {
+            return new LoginResponse(HttpStatus.BAD_REQUEST.value(), "Failed");
+        }
+        return new LoginResponse(HttpStatus.OK.value(), "Success", listObj);
     }
 
 }
