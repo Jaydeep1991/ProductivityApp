@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.aroha.pet.exception.AppException;
@@ -105,6 +106,13 @@ public class AuthController {
     public ResponseEntity<?> getLoginDetails() {
         return ResponseEntity.ok(loginLogoutService.showLoginDetails());
     }
+    
+    @PostMapping("/showlatestlearnerloginDetails")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MENTOR')")
+    public ResponseEntity<?> getLatestLoginDetailsOfUser(@RequestParam("userId") Long userId){
+    	return ResponseEntity.ok(loginLogoutService.showLoginDetails(userId));
+    }
+    
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest, @CurrentUser UserPrincipal currentUser) {
