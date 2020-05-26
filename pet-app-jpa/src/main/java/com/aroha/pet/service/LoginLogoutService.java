@@ -37,7 +37,7 @@ public class LoginLogoutService {
 	public void saveLoginTime(long userId) {
 		LoginLogoutTime login = new LoginLogoutTime();
 		login.setUserId(userId);
-		Date date=new Date();
+		Date date = new Date();
 		login.setLoginDateTime(date.toInstant());
 		loginRepo.save(login);
 	}
@@ -96,32 +96,38 @@ public class LoginLogoutService {
 			}
 			User user = userObj.get();
 			String getTime = "";
-			String[] time = obj.getLoggedInTime().split(":");
-			if (!time[0].equals("00")) {
-				getTime += time[0] + " hours ";
-			}
-			if (!time[1].equals("00")) {
-				getTime += time[1] + " minutes ";
-			}
-			if (!time[2].equals("00")) {
-				getTime += time[2] + " seconds";
+			if(obj.getLogoutDateTime()!=null) {
+				String[] time = obj.getLoggedInTime().split(":");
+				if (!time[0].equals("00")) {
+					getTime += time[0] + " hours ";
+				}
+				if (!time[1].equals("00")) {
+					getTime += time[1] + " minutes ";
+				}
+				if (!time[2].equals("00")) {
+					getTime += time[2] + " seconds";
+				}
 			}
 			loginObj.setName(user.getName());
-			loginObj.setLogedeInTime(getTime);
+			if(obj.getLoggedInTime()!=null) {
+				loginObj.setLogedeInTime(getTime);
+			}
 			loginObj.setUserId(user.getId());
-			
+
 			String inputValue = obj.getLoginDateTime().toString();
 			Instant timestamp = Instant.parse(inputValue);
 			ZonedDateTime indianTimeZone = timestamp.atZone(ZoneId.of("Asia/Kolkata"));
-			String loginDateTime=DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm:ss").format(indianTimeZone);
+			String loginDateTime = DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm:ss").format(indianTimeZone);
 			loginObj.setLoginTime(loginDateTime);
-			
-			String inputValue1 = obj.getLogoutDateTime().toString();
-			Instant timestamp1 = Instant.parse(inputValue1);
-			ZonedDateTime indianTimeZone1 = timestamp1.atZone(ZoneId.of("Asia/Kolkata"));
-			String logoutTime=DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm:ss").format(indianTimeZone1);
-			loginObj.setLogOutTime(logoutTime);
-			
+
+			if(obj.getLogoutDateTime()!=null) {
+				String inputValue1 = obj.getLogoutDateTime().toString();
+				Instant timestamp1 = Instant.parse(inputValue1);
+				ZonedDateTime indianTimeZone1 = timestamp1.atZone(ZoneId.of("Asia/Kolkata"));
+				String logoutTime = DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm:ss").format(indianTimeZone1);
+				loginObj.setLogOutTime(logoutTime);
+			}
+
 			listObj.add(loginObj);
 		}
 		if (listObj.isEmpty()) {
@@ -131,7 +137,6 @@ public class LoginLogoutService {
 	}
 
 	// Method Overriding
-
 	public LoginResponse showLoginDetails(Long userId) {
 		List<LoginLogoutTime> list = loginRepo.findLatestRecordOfUser(userId);
 		Iterator<LoginLogoutTime> itr = list.iterator();
@@ -146,32 +151,37 @@ public class LoginLogoutService {
 			}
 			User user = userObj.get();
 			String getTime = "";
-			String[] time = obj.getLoggedInTime().split(":");
-			if (!time[0].equals("00")) {
-				getTime += time[0] + " hours ";
-			}
-			if (!time[1].equals("00")) {
-				getTime += time[1] + " minutes ";
-			}
-			if (!time[2].equals("00")) {
-				getTime += time[2] + " seconds";
+			if(obj.getLogoutDateTime()!=null) {
+				String[] time = obj.getLoggedInTime().split(":");
+				if (!time[0].equals("00")) {
+					getTime += time[0] + " hours ";
+				}
+				if (!time[1].equals("00")) {
+					getTime += time[1] + " minutes ";
+				}
+				if (!time[2].equals("00")) {
+					getTime += time[2] + " seconds";
+				}
 			}
 			loginObj.setName(user.getName());
-			loginObj.setLogedeInTime(getTime);
+			if(obj.getLoggedInTime()!=null) {
+				loginObj.setLogedeInTime(getTime);
+			}
 			loginObj.setUserId(user.getId());
-
 
 			String inputValue = obj.getLoginDateTime().toString();
 			Instant timestamp = Instant.parse(inputValue);
 			ZonedDateTime indianTimeZone = timestamp.atZone(ZoneId.of("Asia/Kolkata"));
-			String loginDateTime=DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm:ss").format(indianTimeZone);
+			String loginDateTime = DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm:ss").format(indianTimeZone);
 			loginObj.setLoginTime(loginDateTime);
 
-			String inputValue1 = obj.getLogoutDateTime().toString();
-			Instant timestamp1 = Instant.parse(inputValue1);
-			ZonedDateTime indianTimeZone1 = timestamp1.atZone(ZoneId.of("Asia/Kolkata"));
-			String logoutTime=DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm:ss").format(indianTimeZone1);
-			loginObj.setLogOutTime(logoutTime);
+			if(obj.getLogoutDateTime()!=null) {
+				String inputValue1 = obj.getLogoutDateTime().toString();
+				Instant timestamp1 = Instant.parse(inputValue1);
+				ZonedDateTime indianTimeZone1 = timestamp1.atZone(ZoneId.of("Asia/Kolkata"));
+				String logoutTime = DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm:ss").format(indianTimeZone1);
+				loginObj.setLogOutTime(logoutTime);
+			}
 
 			listObj.add(loginObj);
 		}
@@ -179,6 +189,7 @@ public class LoginLogoutService {
 			return new LoginResponse(HttpStatus.BAD_REQUEST.value(), "Failed");
 		}
 		return new LoginResponse(HttpStatus.OK.value(), "Success", listObj);
+
 	}
 
 }

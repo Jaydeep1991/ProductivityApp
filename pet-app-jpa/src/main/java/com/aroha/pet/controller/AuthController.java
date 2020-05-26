@@ -106,13 +106,12 @@ public class AuthController {
     public ResponseEntity<?> getLoginDetails() {
         return ResponseEntity.ok(loginLogoutService.showLoginDetails());
     }
-    
+
     @PostMapping("/showlatestlearnerloginDetails")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MENTOR')")
-    public ResponseEntity<?> getLatestLoginDetailsOfUser(@RequestParam("userId") Long userId){
-    	return ResponseEntity.ok(loginLogoutService.showLoginDetails(userId));
+    public ResponseEntity<?> getLatestLoginDetailsOfUser(@RequestParam("userId") Long userId) {
+        return ResponseEntity.ok(loginLogoutService.showLoginDetails(userId));
     }
-    
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest, @CurrentUser UserPrincipal currentUser) {
@@ -152,7 +151,6 @@ public class AuthController {
                 throw new RuntimeException("Only admin can create another admin");
             }
         }
-        logger.info("-----------------------------Iam here--------------");
         user.setPhoneNo(signUpRequest.getPhoneNo());
         user.setAltPhoneNo(signUpRequest.getAltPhoneNo());
         user.setPrimarySkills(signUpRequest.getPrimarySkills());
@@ -195,7 +193,6 @@ public class AuthController {
                     + "\n"
                     + "ArohaTechnologies", true);
             javaMailSender.send(msg);
-            logger.info("--------Email sent to User-------");
         } catch (Exception ex) {
             sendEmail = false;
             logger.info("--------Email failed to sent to User-------" + ex.getMessage());
