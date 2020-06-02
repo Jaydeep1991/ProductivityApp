@@ -19,10 +19,10 @@ public interface LoginLogoutTimeRepository extends JpaRepository<LoginLogoutTime
             + "from login_table\n"
             + "where login_date_time in (select max(login_date_time)\n"
             + "                          from login_table\n"
-            + "					      group by user_id)", nativeQuery = true)
+            + "					      group by user_id) order by login_date_time desc", nativeQuery = true)
     public List<LoginLogoutTime> findLatestLoginTime();
 
-    @Query(value = "select * from login_table where user_id=?1 order by login_date_time desc limit 7", nativeQuery = true)
-    public List<LoginLogoutTime> findLatestRecordOfUser(Long userId);
+    @Query(value = "select * from login_table where user_id=?1 order by login_date_time desc limit ?2", nativeQuery = true)
+    public List<LoginLogoutTime> findLatestRecordOfUser(Long userId,int days);
 
 }
