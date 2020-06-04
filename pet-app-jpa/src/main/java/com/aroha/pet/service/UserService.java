@@ -232,19 +232,14 @@ public class UserService {
     }
 
     public Object updatePassword(ForgetPassword object) {
-        logger.info("----I am here------ 1 ");
         if(map==null){
             return new ForgetPasswordPayload(HttpStatus.CONFLICT.value(),Boolean.FALSE,"Something went wrong,try again later");
         }
         ForgetPasswordCheck code = map.get(object.getUsernameOrEmail());
-        logger.info("----I am here------ 2 ");
         String getOtpFromUser = object.getOneTimePass();
         logger.info("--------Generated OTP with object-----" + code.getCode());
-        //logger.info("------ OTP PASWORD " + unique_password);
         logger.info("eNTERED PASSWORD IS: " + getOtpFromUser);
-        
-        
-    
+         
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         

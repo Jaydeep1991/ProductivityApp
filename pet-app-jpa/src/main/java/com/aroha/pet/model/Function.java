@@ -26,8 +26,10 @@ public class Function implements Serializable {
     private int functionId;
 
     @NotNull
+    @NotBlank
     private double businessSize;
     @NotNull
+    @NotBlank
     private double businessValue;
     @NotBlank
     @NotNull

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -101,9 +102,9 @@ public class FeedBackController {
         return ResponseEntity.ok("cleared notification");
     }
 
-//    @GetMapping("/findTechnology")
-//    public ResponseEntity<?> getTechnology(@CurrentUser UserPrincipal user) {
-//        Long userId = user.getId();
-//        return ResponseEntity.ok(feedService.findTechnology(userId));
-//    }
+    @PostMapping("/sendReportInEmail")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<?> getReportInEmail(@RequestParam String createdAt, @RequestParam long created_by, @RequestParam int domainId,@CurrentUser UserPrincipal user){
+    	return ResponseEntity.ok(feedService.showReportSQLInEmail(created_by,createdAt,domainId,user));
+    }
 }
