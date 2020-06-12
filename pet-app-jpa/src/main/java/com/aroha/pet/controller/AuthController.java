@@ -191,12 +191,12 @@ public class AuthController {
                     + "\n\n"
                     + "Warm Regards,<br>\n"
                     + "\n"
-                    + "ArohaTechnologies", true);
+                    + "Aroha Technologies", true);
             javaMailSender.send(msg);
         } catch (Exception ex) {
             sendEmail = false;
-            logger.info("--------Email failed to sent to User-------" + ex.getMessage());
-        }
+           logger.info("--------Email failed to sent to User-------" + ex.getMessage());
+        }   
 
         if (sendEmail) {
             return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully\n" + "Successfully sent email"));

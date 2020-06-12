@@ -103,8 +103,9 @@ public class FeedBackController {
     }
 
     @PostMapping("/sendReportInEmail")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> getReportInEmail(@RequestParam String createdAt, @RequestParam long created_by, @RequestParam int domainId,@CurrentUser UserPrincipal user){
-    	return ResponseEntity.ok(feedService.showReportSQLInEmail(created_by,createdAt,domainId,user));
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MENTOR')")
+    public ResponseEntity<?> getReportInEmail(@RequestParam String createdAt, @RequestParam long created_by, @RequestParam int domainId){
+    	return ResponseEntity.ok(feedService.showReportSQLInEmail(created_by,createdAt,domainId));
     }
+  
 }
