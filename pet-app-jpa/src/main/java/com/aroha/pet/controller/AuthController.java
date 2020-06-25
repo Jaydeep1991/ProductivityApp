@@ -93,7 +93,14 @@ public class AuthController {
         if (roleId == 1) {
             loginLogoutService.saveLoginTime(getUser.getId());
         }
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+//        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        JwtAuthenticationResponse jsonResponse=new JwtAuthenticationResponse();
+        jsonResponse.setAccessToken(jwt);
+        jsonResponse.setId(getUser.getId());
+        jsonResponse.setUsername(getUser.getEmail());
+        jsonResponse.setName(getUser.getName());
+        jsonResponse.setRoles(authentication.getAuthorities());
+        return ResponseEntity.ok(jsonResponse);
     }
 
     @PostMapping("/logout")
